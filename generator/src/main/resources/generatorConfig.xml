@@ -1,0 +1,55 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!--suppress MybatisGenerateCustomPluginInspection -->
+<generatorConfiguration>
+
+    <!-- 引入外部属性文件 -->
+<!--    <properties resource=""/>-->
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="useMapperCommentGenerator" value="true"/>
+        <property name="beginningDelimiter" value=""/>
+        <property name="endingDelimiter" value=""/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <!-- 设置继承的Mapper类，可自定义Mapper类，然后在此修改mappers，指向自定义的Mapper类上 -->
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <!-- 当数据库区分大小时，需要设置成true，默认false -->
+            <property name="caseSensitive" value="true"/>
+            <!-- 是否强制生成主键@Table和@Column -->
+            <property name="forceAnnotation" value="true"/>
+            <property name="beginningDelimiter" value="`"/>
+            <property name="endingDelimiter" value="`"/>
+            <property name="lombok" value="Getter,Setter,Swagger"/>
+        </plugin>
+
+<!--        &lt;!&ndash; 去掉全部的注释 &ndash;&gt;-->
+<!--        <commentGenerator>-->
+<!--            &lt;!&ndash; 是否去除自动生成的注释 true：是；false：否 &ndash;&gt;-->
+<!--            <property name="suppressAllComments" value="true" />-->
+<!--        </commentGenerator>-->
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.35.65:3306/test"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="io.daff.generator.entity"
+                            targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="io.daff.generator.mapper"
+                             targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+        <table tableName="t_employee" domainObjectName="Employee">
+            <generatedKey column="emp_id" sqlStatement="MySQL" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
